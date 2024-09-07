@@ -35,5 +35,28 @@ btn.addEventListener('click', () => {
     // Schimbăm culoarea de fundal a colorDiv în culoarea generată
     colorDiv.style.backgroundColor = rndHex;
     // Afişăm hex codul generat ca text în div-ul descriptiv
-    colorDescription.textContent = rndHex;
+    //colorDescription.textContent = rndHex;
+
+    // "Traducem" codul hex în cod rgb şi salvăm într-o variabilă
+    const rgbCode = hexToRgb(rndHex);
+    colorDescription.textContent = `${rndHex} | ${rgbCode}`;
+
 });
+
+function hexToRgb(hex) {
+  // Remove the '#' symbol if present
+  hex = hex.replace('#', '');
+
+  // Ensure the hex code is 6 characters long
+  if (hex.length !== 6) {
+    throw new Error('Invalid hex code: ' + hex);
+  }
+
+  // Extract the red, green, and blue components
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  // Return the RGB values as a string
+  return `rgb(${r}, ${g}, ${b})`;
+}
